@@ -10,9 +10,9 @@ Written by: Ofra Golani at MICC Cell Observatory, Weizmann Institute of Science
 
 In collaboration with Anya Vainshtein and Elior Peles, Weizmann Institute of Science
 
-This macro was used in: 
-> Precise spatiotemporal control of nodal Na+ channels clustering by bone morphogenetic protein-1 (BMP-1)/tolloid (TLD)-like proteinases
-> Yael Eshed-Eisenbach1, Jerome Devaux3, Anna Vainshtein1, Ofra Golani2, Se-Jin Lee4, Konstantin Feinberg1, Natasha Sukhanov1,Daniel S Greenspan5, Keiichiro Susuki6, Matthew N. Rasband7, and Elior Peles
+This macro was used in: <br/> <br/>
+**Precise spatiotemporal control of nodal Na+ channels clustering by bone morphogenetic protein-1 (BMP-1)/tolloid (TLD)-like proteinases<br/> <br/>
+Yael Eshed-Eisenbach1, Jerome Devaux3, Anna Vainshtein1, Ofra Golani2, Se-Jin Lee4, Konstantin Feinberg1, Natasha Sukhanov1,Daniel S Greenspan5, Keiichiro Susuki6, Matthew N. Rasband7, and Elior Peles** <br/> <br/>
 
 
 Software package: Fiji (ImageJ)
