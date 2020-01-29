@@ -11,8 +11,8 @@ Written by: Ofra Golani at MICC Cell Observatory, Weizmann Institute of Science
 In collaboration with Anya Vainshtein and Elior Peles, Weizmann Institute of Science
 
 This macro was used in: 
-Precise spatiotemporal control of nodal Na+ channels clustering by bone morphogenetic protein-1 (BMP-1)/tolloid (TLD)-like proteinases
-Yael Eshed-Eisenbach1, Jerome Devaux3, Anna Vainshtein1, Ofra Golani2, Se-Jin Lee4, Konstantin Feinberg1, Natasha Sukhanov1,Daniel S Greenspan5, Keiichiro Susuki6, Matthew N. Rasband7, and Elior Peles
+> Precise spatiotemporal control of nodal Na+ channels clustering by bone morphogenetic protein-1 (BMP-1)/tolloid (TLD)-like proteinases
+> Yael Eshed-Eisenbach1, Jerome Devaux3, Anna Vainshtein1, Ofra Golani2, Se-Jin Lee4, Konstantin Feinberg1, Natasha Sukhanov1,Daniel S Greenspan5, Keiichiro Susuki6, Matthew N. Rasband7, and Elior Peles
 
 
 Software package: Fiji (ImageJ)
@@ -87,25 +87,21 @@ In Update mode the macro skips the segmentation stages (2-7), instead it gets th
 find matching pairs of inne/outer ROIs (based on their names) and calculate the updated G-ratio. 
 The ROIs are read either from manually corrected file (FN_InnerOuterRoiSet_Manual.zip if exist) or otherwise from the original file (FN_InnerOuterRoiSet.zip)
   
-Manual Correction Instructions
-==============================
+### Manual Correction Instructions
 - Open the original image (FN)
 - Make sure there is no RoiManager open
 - Drag-and-drop the "FN_InnerOuterRoiSet.zip" into Fiji main window 
 - In RoiManager: make sure that "Show All" is selected. Ususaly it is more conveinient to unselect Labels 
   
-Select A ROI
-------------
+#### Select A ROI
 - You can select a ROI from the ROIManager or with long click inside a ring to select its outer ROI (with the Hand-Tool selected in Fiji main window), 
    this will highlight the (outer) ROI in the RoiManager, the matching inner Roi is just above it
     
-Delete falsely detected objects
--------------------------------
+#### Delete falsely detected objects
 - Select a ROI
 - Click "Delete" to delete a ROI. it is better to delete both Inner and Outer ROI's 
   
-Fix segmentation error 
-----------------------
+#### Fix segmentation error 
 - Select a ROI
 - You can update it eg by using the brush tool (deselecting Show All may be more convnient) 
 - Hold the shift key down and it will be added to the existing selection. Hold down the alt key and it will be subracted from the existing selection
@@ -113,8 +109,7 @@ Fix segmentation error
   
 - Otherwise you can delete the ROI (see above) and draw another one instead (see below)
  
-Add non-detected Ring
----------------------
+#### Add non-detected Ring
 - A myelin profile is represented by 2 ROIs: one that follows the outer mayelin contour (outer ROI), and one that follow the inner myelin or axon (inner ROI)
   to add a profile, you need to create both inner and outer ROIs
     
@@ -127,14 +122,12 @@ see also: https://imagej.nih.gov/ij/docs/tools.html
    **naming ROIs correctly is crucial** for the update mode to work correctly 
 - when drawing outer Roi- just draw the outer contour, 
   
-Save ROIs
----------
+#### Save ROIs
 - When done with all corrections make sure to 
 - From the RoiManager, click "Deselect" 
 - From the RoiManager, click "More" and then "Save" , save the updated file into a file named as the original Roi file with suffix "_Manual": "FN_InnerOuterRoiSet_Manual.zip", using correct file name is crucial
     
-Run the macro in Update Mode
-----------------------------
+#### Run the macro in Update Mode
 - When done with correction run the macro again, and change "RunMode" to be "Update" (instead of "Segment"
   
 ## Notes Regarding Ilastik Classifier
