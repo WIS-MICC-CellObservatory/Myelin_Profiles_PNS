@@ -6,9 +6,6 @@ Segment mature isolated myelin profiles from stitched serialEM images and quanti
 The macro relies on pixel classification with Ilastik, it assumes that the given classifier was trained to predict myelin (first class) vs background (second class)
 Note that this macro is designed to segment isolated myelin rings eg from PNS and it is not suitable for cases in which you have touching rings (eg CNS)
 
-Written by: Ofra Golani at MICC Cell Observatory, Weizmann Institute of Science
-
-In collaboration with Anya Vainshtein and Elior Peles, Weizmann Institute of Science
 
 This macro was used in: <br/> <br/>
 <p align="center">
@@ -22,6 +19,10 @@ This macro was used in: <br/> <br/>
 Software package: Fiji (ImageJ)
 
 Workflow language: ImageJ macro
+
+Written by: Ofra Golani at MICC Cell Observatory, Weizmann Institute of Science
+
+In collaboration with Anya Vainshtein and Elior Peles, Weizmann Institute of Science
 
 ![Example output](https://github.com/WIS-MICC-CellObservatory/Myein_Profiles_PNS/blob/master/Gl..Dn.Het2.p3.sn_blend.d2_InnerOuterOverlay_Manual_CROP_ds2.png)
 ## Workflow
