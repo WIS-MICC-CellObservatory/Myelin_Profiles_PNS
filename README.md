@@ -15,7 +15,7 @@ This macro was used in: <br/> <br/>
 	<strong>Precise spatiotemporal control of nodal Na+ channels clustering by bone morphogenetic protein-1 (BMP-1)/tolloid (TLD)-like proteinases</strong><br/> <br/>
 	</p>
 <p align="center">
-	<strong>Yael Eshed-Eisenbach1, Jerome Devaux3, Anna Vainshtein1, Ofra Golani2, Se-Jin Lee4, Konstantin Feinberg1, Natasha Sukhanov1,Daniel S Greenspan5, Keiichiro Susuki6, Matthew N. Rasband7, and Elior Peles</strong> <br/> <br/>
+	<strong>Yael Eshed-Eisenbach, Jerome Devaux, Anna Vainshtein, Ofra Golani, Se-Jin Lee, Konstantin Feinberg, Natasha Sukhanov, Daniel S Greenspan, Keiichiro Susuki, Matthew N. Rasband, and Elior Peles</strong> <br/> <br/>
 	</p>
 
 
