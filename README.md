@@ -1,4 +1,4 @@
-# Segmentation and quantification of mature isolated myelin rings from serialEM of PNS 
+# Segmentation and quantification of mature isolated Myelin Rings from serialEM of PNS 
 
 ## Overview
 
