@@ -1,14 +1,19 @@
-# Segmentation and Quantification of mature isolated Myelin Rings from serialEM of PNS 
+# Segmentation and Quantification of mature isolated Myelin Profiles from serialEM of PNS 
 
 ## Overview
 
-Segment mature isolated myelin rings from stitched serialEM images and quantify their g-ratio
+Segment mature isolated myelin profiles from stitched serialEM images and quantify their g-ratio
 The macro relies on pixel classification with Ilastik, it assumes that the given classifier was trained to predict myelin (first class) vs background (second class)
 Note that this macro is designed to segment isolated myelin rings eg from PNS and it is not suitable for cases in which you have touching rings (eg CNS)
 
 Written by: Ofra Golani at MICC Cell Observatory, Weizmann Institute of Science
 
 In collaboration with Anya Vainshtein and Elior Peles, Weizmann Institute of Science
+
+This macro was used in: 
+Precise spatiotemporal control of nodal Na+ channels clustering by bone morphogenetic protein-1 (BMP-1)/tolloid (TLD)-like proteinases
+Yael Eshed-Eisenbach1, Jerome Devaux3, Anna Vainshtein1, Ofra Golani2, Se-Jin Lee4, Konstantin Feinberg1, Natasha Sukhanov1,Daniel S Greenspan5, Keiichiro Susuki6, Matthew N. Rasband7, and Elior Peles
+
 
 Software package: Fiji (ImageJ)
 
@@ -21,27 +26,27 @@ Workflow language: ImageJ macro
 3. Apply Ilastik pixels classification to get Probability map (and save it to output folder)
 4. Threshold the mayelin prediction probabilities to get binary mask of candidate myelin pixels
 5. Candidate myelin segments are were extracted using connected component analysis (AnalyzeParticles) 
-6. To make sure that only closed ring-like segments are taken into account candidate ring segments are further filtered based on 
+6. To make sure that only closed ring-like segments are taken into account, the candidate segments are further filtered based on 
    - myelin-segment size (MinEmptyRingSegmentSize>3.8 um^2), 
-   - inner –hole area (MinInnerRingSize>7.6 um^2), 
-   - inner hole circularity (MinInnerRingCircularity>0.1) 
-   - outer ring circularity (MinRingSegmentCircularity>0.1), and 
+   - axon area (MinInnerRingSize>7.6 um^2), 
+   - axon circularity (MinInnerRingCircularity>0.1) 
+   - outer profile circularity (MinRingSegmentCircularity>0.1), and 
    - area fraction (MaxRingSegmentRoiFractionArea<90%) . 
-7. Twisted rings are discarded by filtering out segments with more than one hole. 
+7. Twisted profiles are discarded by filtering out segments with more than one hole. 
 8. Inner and outer contours are extracted from each segment and used for calculating the inner and outer area. 
-9. G-ratio is then calculated for each ring as the ratio between the equivalent inner and outer diameters.  
-10. The ROIs are renamed and sorted so that the ROI name is prefxed with the ring identity (Rnnnn-) and the type of ROI ("I-" for inner/ "O-" for outer)
+9. G-ratio is then calculated for each profile as the ratio between the equivalent inner and outer diameters.  
+10. The ROIs are renamed and sorted so that the ROI name is prefxed with the profile identity (Rnnnn-) and the type of ROI ("I-" for inner/ "O-" for outer)
 
 ## Output
 
 The macro saves the following output files for each image (eg with name FN) in a subfolder (ResultsSubFolder) under the original folder location:  
-- Inner and outer ring ROIs (FN_InnerOuterRoiSet.zip)
-- The original image with overlay of the segmented rings (FN_InnerOuterOverlay.tif), Inner ring is colored in magenta (InnerRoiColor), outer ring in green (OuterRoiColor) 
-- Result table with (FN_FinalResults.csv) : one line for each ring with the following information
+- Inner and outer profile ROIs (FN_InnerOuterRoiSet.zip)
+- The original image with overlay of the segmented profiles (FN_InnerOuterOverlay.tif), Inner profile is colored in magenta (InnerRoiColor), outer profile in green (OuterRoiColor) 
+- Result table with (FN_FinalResults.csv) : one line for each profile with the following information
 	* name of outer and inner ROis, 
-	* area of inner and outer rings and their ratio (AreaGRatio), 
+	* area of inner and outer profiles and their ratio (AreaGRatio), 
 	* the equivalent diamters and their ratio (DiameterGRatio)
-- Images of the segmented rings color-coded by the GRatio value (FN__DiameterGRatio_Flatten.tif, FN_AreaGRatio_Flatten.tif) 
+- Images of the segmented profiles color-coded by the GRatio value (FN__DiameterGRatio_Flatten.tif, FN_AreaGRatio_Flatten.tif) 
   Apearance of the color-coded images can be changed by setting Min/Max values and colomap (aka LUT) 
 
 ## Dependencies
@@ -76,7 +81,7 @@ To save time when processing again already-processed file and changing only Fiji
 
 ## Manual Correction
 
-The above automatic process segment correctly most of the rings. 
+The above automatic process segment correctly most of the profiles. 
 Further manual correction is supported by switching from Segment Mode to Update Mode.   
 In Update mode the macro skips the segmentation stages (2-7), instead it gets the segmented ROIS from a file, 
 find matching pairs of inne/outer ROIs (based on their names) and calculate the updated G-ratio. 
@@ -110,15 +115,15 @@ Fix segmentation error
  
 Add non-detected Ring
 ---------------------
-- A ring is represented by 2 ROIs: one that follows the outer mayelin contour (outer ROI), and one that follow the inner myelin or axon (inner ROI)
-  to add a ring, you need to create both inner and outer ROIs
+- A myelin profile is represented by 2 ROIs: one that follows the outer mayelin contour (outer ROI), and one that follow the inner myelin or axon (inner ROI)
+  to add a profile, you need to create both inner and outer ROIs
     
 - You can draw a ROI using one of the drawing tools 
 - An alternative can be using the Wand tool , you'll need to set the Wand tool tolerance first by double clicking on the wand tool icon. 
 see also: https://imagej.nih.gov/ij/docs/tools.html
   
 - click 't' from the keyboard or "Add" from RoiManger to add it to the RoiManager 
-- go to the the very end of the RoiManager , select the newly created ROI and click "Rename", add "I-" or "O-" (capital o) for Inner or outer ring respectively.
+- go to the the very end of the RoiManager , select the newly created ROI and click "Rename", add "I-" or "O-" (capital o) for Inner or outer profile respectively.
    **naming ROIs correctly is crucial** for the update mode to work correctly 
 - when drawing outer Roi- just draw the outer contour, 
   
