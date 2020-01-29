@@ -23,7 +23,7 @@ Software package: Fiji (ImageJ)
 
 Workflow language: ImageJ macro
 
-![Example output](https://github.com/WIS-MICC-CellObservatory/Myein_Profiles_PNS/blob/master/Gl..Dn.Het2.p3.sn_blend.d2_InnerOuterOverlay_Manual_CROP_ds2.tif)
+![Example output](https://github.com/WIS-MICC-CellObservatory/Myein_Profiles_PNS/blob/master/Gl..Dn.Het2.p3.sn_blend.d2_InnerOuterOverlay_Manual_CROP_ds2.png)
 ## Workflow
 
 1. Open selected image
