@@ -137,6 +137,9 @@
  *  - Ilastik pixel classifier (ilastik-1.3.3post1)" https://www.ilastik.org/ 
  *  - Ilastik Fiji Plugin (add "Ilastik" to your selected Fiji Update Sites)
  *  - MorphoLibJ plugin (add "IJPB-plugins" to your selected Fiji Update Sites), see: https://imagej.net/MorphoLibJ 
+ *  
+ *  Updates:
+ *  	19.11.2020 - Avoid ilastik GUI popup, enter batchmode only after reading ilastik output
  */
  
 var ChosenOutputType = "Probabilities";
@@ -148,6 +151,7 @@ var PixelUnit = "nm";
 var PixelSizeUsedForIlastik = 7.588 // nm 
 var PixelSizeCheckFactor = 1.2; //1.1;
 var saveIlastikOutputFileFlag = 1;
+var MyleinClassNumInIlastik = 1; 
 
 // Segmentation Parameters
 var MinRingSegmentSize = 7600; // nm^2  (= 1000 pixels with original downscale by 2)
@@ -295,7 +299,8 @@ function GetIlastikPixelProb(imageName, imageNameNoExt, checkForExistingIlastikO
 		if (File.exists(resFolder+IlastikOutFile))
 		{
 			print("Reading existing Ilastik output ...");
-			run("Import HDF5", "select=["+resFolder+IlastikOutFile+"] datasetname=[/data: uint16] axisorder=tzyxc");
+			//run("Import HDF5", "select=["+resFolder+IlastikOutFile+"] datasetname=[/data: uint16] axisorder=tzyxc");
+			run("Import HDF5", "select=["+resFolder+IlastikOutFile+"] datasetname=/data axisorder=tzyxc");
 			found = 1;
 		}
 	}
@@ -303,7 +308,8 @@ function GetIlastikPixelProb(imageName, imageNameNoExt, checkForExistingIlastikO
 	{
 		// run Ilastik Pixel Classifier - first channel is ring / second channel is background
 		print("Running Ilastik Pixel classifier...");
-		run("Run Pixel Classification Prediction", "saveonly=false projectfilename=["+IlastikClassifierName+"] inputimage=["+imageName+"] chosenoutputtype=Probabilities");		
+		//run("Run Pixel Classification Prediction", "saveonly=false projectfilename=["+IlastikClassifierName+"] inputimage=["+imageName+"] chosenoutputtype=Probabilities");		
+		run("Run Pixel Classification Prediction", "saveonly=false projectfilename=["+IlastikClassifierName+"] inputimage=["+imageName+"] pixelclassificationtype=Probabilities");		
 	}
 	rename("outProbabilities");
 	setVoxelSize(width, height, depth, unit);
@@ -313,6 +319,14 @@ function GetIlastikPixelProb(imageName, imageNameNoExt, checkForExistingIlastikO
 		run("Export HDF5", "select=["+resFolder+IlastikOutFile+"] exportpath=["+resFolder+IlastikOutFile+"] datasetname=data compressionlevel=0 input="+"outProbabilities");	
 		rename("outProbabilities");
 	}
+
+	run("Duplicate...", "title=outProbabilities_MyelinChannel duplicate channels="+MyleinClassNumInIlastik);
+	if (batchModeFlag)
+	{
+		print("Going into Batch Mode, processing without opening further images");
+		setBatchMode(true);
+	}	
+	
 }
 
 
@@ -324,10 +338,12 @@ function SegmentAndMeasureRings(imageName, imageNameNoExt, resDir)
 	if (matches(runMode, "Segment")) 
 	{
 		print("SegmentAndMeasureRings: Starting Segment Mode ...");
-		selectWindow("outProbabilities");
+		//selectWindow("outProbabilities");
+		selectWindow("outProbabilities_MyelinChannel");
 	
 		// Segment Rings from the 
-		run("Duplicate...", "title=RingMask duplicate channels=1");
+		//run("Duplicate...", "title=RingMask duplicate channels=1");
+		run("Duplicate...", "title=RingMask duplicate");
 		run("Duplicate...", "title=Orig");
 		
 		selectWindow("RingMask");
@@ -768,7 +784,8 @@ function createLabelMaskFromRoiManager_byText (ImName, labeledName, TextStr)
 // Clear all results, configure Ilastik, return SuffixStr
 function Initialization()
 {
-	run("Configure ilastik executable location", "executablefilepath=["+IlastikExecutableLocation+"] numthreads=-1 maxrammb="+MaxRAMMB);	
+	//run("Configure ilastik executable location", "executablefilepath=["+IlastikExecutableLocation+"] numthreads=-1 maxrammb="+MaxRAMMB);	
+	run("Configure ilastik executable location", "executablefile=["+IlastikExecutableLocation+"] numthreads=-1 maxrammb="+MaxRAMMB);	
 	run("Close All");
 	print("\\Clear");
 	run("Options...", "iterations=1 count=1 black");
@@ -781,11 +798,12 @@ function Initialization()
 		run("Close");
 	}
 
-	if (batchModeFlag)
+	/* Moved to after reading ilastik file to be able to access Ilastik output which is Virtual image
+	/*if (batchModeFlag)
 	{
 		print("Working in Batch Mode, processing without opening images");
 		setBatchMode(true);
-	}
+	}*/
 }
 
 
